@@ -1,16 +1,22 @@
-import CompleteList from "./CompleteList.js";
-import ImCompleteList from './ImCompleteList.js';
+import ScheduleData from '../js/services/RequestData.js';
+import HandleSchedule from '../js/Controller/SheduleLists.js'
 
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const completeContentList = $('#completed');
 const imcompleteContentList = $('#todo');
+const dataPicker = $('#datepicker');
+let scheduleLists;
 
-export {completeContentList,imcompleteContentList};
+export {completeContentList,imcompleteContentList, dataPicker};
 
-const completedList = new CompleteList('code homwork');
-const imCompletelist = new ImCompleteList('finish project step 9');
+const scheduleDatas = new ScheduleData;
+const schedule = new HandleSchedule;
+scheduleDatas.getData(start);
 
-completedList.render();
-imCompletelist.render();
+function start(scheduleData) {
+    scheduleLists = scheduleData;
+    schedule.addData(scheduleLists[0].thing)
+    schedule.renderSchedule();
+}
