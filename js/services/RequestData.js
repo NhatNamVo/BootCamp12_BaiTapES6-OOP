@@ -17,6 +17,17 @@ export default class ScheduleData {
             body: JSON.stringify(data)
         }).then((res)=>{
             return res.json();
-        }).then(callback)
+        }).then(callback).catch((err)=>{alert(err)});
+    }
+    addNewData = (callback,data) => {
+        fetch(APIlink, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(data)
+        }).then((res)=>{
+            return res.json();
+        }).then(callback).catch((err)=>{alert(err)});
     }
 }

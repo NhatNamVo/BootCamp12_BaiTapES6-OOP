@@ -1,5 +1,5 @@
-import {newTaskValue, addItemBtn,noteNewTask,scheduleLists,taskList, optionBtn} from '../main.js';
-export default function HandleEvent(schedule,scheduleDatas) {
+import {newTaskValue, addItemBtn,noteNewTask,scheduleLists,taskList, optionBtn, editBtn, datePicker, dateTask, monthyear, choseDateOkBtn, day} from '../main.js';
+export default function HandleEvent(schedule,scheduleDatas,dateSchedule) {
     addItemBtn.onclick = (event) => {
         if(!newTaskValue.value) {
             noteNewTask.innerHTML = "Task input is empty";
@@ -13,8 +13,8 @@ export default function HandleEvent(schedule,scheduleDatas) {
                 }
                 schedule.addNewTask(newTask);
                 let scheduleList = schedule.scheduleList.length;
-                scheduleLists[0].thing = schedule.scheduleList;
-                scheduleDatas.updateData(schedule.renderItem(newTask,scheduleList-1),schedule.id,scheduleLists[0]);
+                dateSchedule.dateDatas[dateSchedule.currentitemIndex].thing = schedule.scheduleList;
+                scheduleDatas.updateData(schedule.renderItem(newTask,scheduleList-1),schedule.id,dateSchedule.dateDatas[dateSchedule.currentitemIndex]);
                 newTaskValue.value = '';
             }
             else{
@@ -35,13 +35,13 @@ export default function HandleEvent(schedule,scheduleDatas) {
         if(taskDelete || taskComplete){
             if(taskDelete){
                 schedule.removeTask(taskItemIndex);
-                scheduleDatas.updateData(taskItem.parentNode.removeChild(taskItem),schedule.id,scheduleLists[0]);
+                scheduleDatas.updateData(taskItem.parentNode.removeChild(taskItem),schedule.id,dateSchedule.dateDatas[dateSchedule.currentitemIndex]);
             }
             else if(taskComplete){
                 schedule.changeState(taskItemIndex);
                 taskItem.parentNode.removeChild(taskItem);
                 const updateTask = schedule.scheduleList[taskItemIndex];
-                scheduleDatas.updateData(schedule.renderItem(updateTask,scheduleList-1),schedule.id,scheduleLists[0]);
+                scheduleDatas.updateData(schedule.renderItem(updateTask,scheduleList-1),schedule.id,dateSchedule.dateDatas[dateSchedule.currentitemIndex]);
             }
         }
     }
@@ -56,16 +56,25 @@ export default function HandleEvent(schedule,scheduleDatas) {
                 schedule.sortTaskNameAZ();
                 document.getElementById('todo').innerHTML = '';
                 document.getElementById('completed').innerHTML = '';
-                scheduleDatas.updateData(schedule.renderSchedule(),schedule.id,scheduleLists[0]);
+                scheduleDatas.updateData(schedule.renderSchedule(),schedule.id,dateSchedule.dateDatas[dateSchedule.currentitemIndex]);
             };
             if(sortZA){
                 schedule.sortTaskNameZA();
                 document.getElementById('todo').innerHTML = '';
                 document.getElementById('completed').innerHTML = '';
-                scheduleDatas.updateData(schedule.renderSchedule(),schedule.id,scheduleLists[0]);
+                scheduleDatas.updateData(schedule.renderSchedule(),schedule.id,dateSchedule.dateDatas[dateSchedule.currentitemIndex]);
             };
         }
     }
-
-
+    editBtn.onclick = (event) => {
+        datePicker.open();
+    }
+    choseDateOkBtn.onclick = () => {
+        let dateChosen = monthyear.innerHTML;
+        let dayChosen = day.innerHTML;
+        dayChosen = dayChosen.replace(dayChosen.slice(-2),',');
+        dateChosen = dateChosen.replace(' ',' ' + dayChosen);
+        dateTask.innerHTML = dateChosen;
+        dateSchedule.checkDateSchedule(dateChosen);
+    }
 }
