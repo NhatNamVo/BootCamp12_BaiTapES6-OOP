@@ -7,5 +7,16 @@ export default class ScheduleData {
         }).then((callback)).catch((error)=>{
             alert(error);
         });
+    };
+    updateData = (callback, id , data) => {
+        fetch(APIlink + '/' + id, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json; charset=UTF-8'
+            },
+            body: JSON.stringify(data)
+        }).then((res)=>{
+            return res.json();
+        }).then(callback)
     }
 }

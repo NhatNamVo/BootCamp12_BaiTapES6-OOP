@@ -5,14 +5,18 @@ export default class ImCompleteList extends ActivityList {
     constructor(title, status) {
         super(title, status);
     }
-    render = () => {
+    render = (index) => {
         let imCompleteContent = imcompleteContentList.innerHTML.toString();
         imCompleteContent += `
-            <li>
+            <li class="taskItem" data-title = ${this.title.replace(' ','_')} data-item = ${index}>
                 <h4>${this.title}</h4>
-                <div style = "color: gray;">
-                    <i class="fa fa-trash-alt"></i>
-                    <i class="fa fa-check-circle"></i>
+                <div class="iconBtn" style = "color: gray;">
+                    <div data-index = ${index} class="deleteBtn" style="width: 50%; text-align: center;">
+                        <i class="fa fa-trash-alt"></i>
+                    </div>
+                    <div data-index = ${index} class="changeState" style="width: 50%; text-align: center;">
+                        <i class="fa fa-check-circle"></i>
+                    </div>
                 </div>
             </li>
             `

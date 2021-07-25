@@ -3,21 +3,65 @@ import ImCompleteList from '../ImCompleteList.js';
 export default class HandleSchedule {
     constructor() {
         this.scheduleList = [];
+        this.id = '';
     }
-    addData = (data) => {
+    addData = (data,id) => {
         this.scheduleList = data;
-        console.log(this.scheduleList);
+        this.id = id;
+        console.log(this.scheduleList, this.id);
     }
     renderSchedule = () => {
         this.scheduleList.map((schedule,index)=>{
-            const completedList = new CompleteList(schedule.title,schedule.status);
-            const imCompletelist = new ImCompleteList(schedule.title,schedule.status);
-            if(schedule.status == 'pending'){
-                imCompletelist.render();
-            }
-            else if(schedule.status == 'complete'){
-                completedList.render();
-            }
+            this.renderItem(schedule,index);
         })
+    }
+    renderItem = (item,index) => {
+        const {title,status} = item;
+        if(status == 'pending'){
+            const imCompletelist = new ImCompleteList(title,status);
+            imCompletelist.render(index);
+        }
+        else if(status == 'complete'){
+            const completedList = new CompleteList(title,status);
+            completedList.render(index);
+        }
+    }
+    checkDublicases = (value) => {
+        return this.scheduleList.every((task)=>{
+            return task.title !== value;
+        })
+    }
+    addNewTask = (newTask) => {
+        this.scheduleList = [...this.scheduleList,newTask];
+    }
+    removeTask = (index) => {
+        this.scheduleList.splice(index,1);
+        console.log(this.scheduleList);
+    }
+    findItem = (itemTitle) => {
+        return this.scheduleList.findIndex((item)=>{
+            return itemTitle === item.title;
+        })
+    }
+    changeState = (index) => {
+        const state = this.scheduleList[index].status;
+        if(state == 'pending') {
+            this.scheduleList[index].status = 'complete';
+        }
+        else{
+            this.scheduleList[index].status = 'pending';
+        }
+    }
+    sortTaskNameAZ = () => {
+        this.scheduleList.sort((firstTitle,secondTitle)=>{
+            return firstTitle.title.localeCompare(secondTitle.title);
+        })
+        console.log(this.scheduleList);
+    }
+    sortTaskNameZA = () => {
+        this.scheduleList.sort((firstTitle,secondTitle)=>{
+            return secondTitle.title.localeCompare(firstTitle.title);
+        })
+        console.log(this.scheduleList);
     }
 }
