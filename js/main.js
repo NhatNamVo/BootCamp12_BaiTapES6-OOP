@@ -40,7 +40,6 @@ function start(scheduleData) {
     dateChosen = dateChosen.replace(' ',' ' + dayChosen);
     dateTask.innerHTML = dateChosen;
     dateSchedule.checkDateSchedule(dateChosen);
-    schedule.addData(dateSchedule.dateDatas[dateSchedule.currentitemIndex].thing,dateSchedule.dateDatas[dateSchedule.currentitemIndex].id);
 }
 
 HandleEvent(schedule,scheduleDatas,dateSchedule);

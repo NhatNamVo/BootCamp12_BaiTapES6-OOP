@@ -25,12 +25,15 @@ export default function HandleEvent(schedule,scheduleDatas,dateSchedule) {
     newTaskValue.oninput = (event) => {
         noteNewTask.innerHTML = "";
     }
+    newTaskValue.onchange = (event) => {
+        noteNewTask.innerHTML = "";
+    }
     taskList.onclick = (event) => {
         const taskDelete = event.target.closest('.deleteBtn');
         const taskComplete = event.target.closest('.changeState');
         const taskItem = event.target.closest('.taskItem');
         let taskItemTitle = taskItem.dataset.title;
-        let taskItemIndex = schedule.findItem(taskItemTitle.replace('_',' '));
+        let taskItemIndex = schedule.findItem(taskItemTitle.replaceAll('_',' '));
         let scheduleList = schedule.scheduleList.length;
         if(taskDelete || taskComplete){
             if(taskDelete){

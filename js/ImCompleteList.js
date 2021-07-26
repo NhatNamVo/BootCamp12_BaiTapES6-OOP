@@ -8,7 +8,7 @@ export default class ImCompleteList extends ActivityList {
     render = (index) => {
         let imCompleteContent = imcompleteContentList.innerHTML.toString();
         imCompleteContent += `
-            <li class="taskItem" data-title = ${this.title.replace(' ','_')} data-item = ${index}>
+            <li class="taskItem" data-title = ${this.title.replaceAll(' ','_')} data-item = ${index}>
                 <h4>${this.title}</h4>
                 <div class="iconBtn" style = "color: gray;">
                     <div data-index = ${index} class="deleteBtn" style="width: 50%; text-align: center;">

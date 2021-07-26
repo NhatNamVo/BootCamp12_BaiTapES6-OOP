@@ -3,12 +3,14 @@ export default class DateSchedule {
     constructor(){
         this.dateDatas = [];
         this.currentitemIndex;
+        this.currentDate;
 
     }
     AddItems = (data) => {
         this.dateDatas = data;
     }
     checkDateSchedule = (date) => {
+        this.currentDate = date;
         let dateIndex = this.dateDatas.findIndex((dateData)=>{
             return dateData.date == date;
         });
@@ -27,14 +29,17 @@ export default class DateSchedule {
                 date: date,
                 thing: [],
             }
-            scheduleDatas.addNewData(console.log(newDateData),newDateData);
-            scheduleDatas.getData(this.start);
+            scheduleDatas.addNewData(scheduleDatas.getData(this.start),newDateData);
         }
     }
     start = (scheduleData) => {
-        this.AddItems(scheduleData);
-        this.checkDateSchedule(dateTask.innerHTML);
-        schedule.addData(this.dateDatas[this.currentitemIndex].thing,this.dateDatas[this.currentitemIndex].id);
-        schedule.renderSchedule();
+        
+        if(this.dateDatas.length != scheduleData.length){
+            this.AddItems(scheduleData);
+            this.checkDateSchedule(this.currentDate);
+        }
+        else{
+            scheduleDatas.getData(this.start);
+        }
     }
 }
