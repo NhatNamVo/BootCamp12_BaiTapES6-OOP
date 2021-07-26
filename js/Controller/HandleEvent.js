@@ -18,7 +18,7 @@ export default function HandleEvent(schedule,scheduleDatas,dateSchedule) {
                 newTaskValue.value = '';
             }
             else{
-                console.log(isDublicase);
+                noteNewTask.innerHTML = "Task is same as a taskname-existing";
             }
         }
     }
