@@ -1,4 +1,4 @@
-import {newTaskValue, addItemBtn,noteNewTask,scheduleLists,taskList, optionBtn, editBtn, datePicker, dateTask, monthyear, choseDateOkBtn, day} from '../main.js';
+import {imcompleteContentList, newTaskValue, addItemBtn,noteNewTask,scheduleLists,taskList, optionBtn, editBtn, datePicker, dateTask, monthyear, choseDateOkBtn, day} from '../main.js';
 export default function HandleEvent(schedule,scheduleDatas,dateSchedule) {
     addItemBtn.onclick = (event) => {
         if(!newTaskValue.value) {
@@ -53,20 +53,24 @@ export default function HandleEvent(schedule,scheduleDatas,dateSchedule) {
         const check = event.target.closest('#one');
         const sortAZ = event.target.closest('#two');
         const sortZA = event.target.closest('#three');
-        const timer = event.target.closest('#all');
-        if(sortAZ || sortZA){
-            if(sortAZ){
+        const all = event.target.closest('#all');
+        if(sortAZ){
                 schedule.sortTaskNameAZ();
                 document.getElementById('todo').innerHTML = '';
                 document.getElementById('completed').innerHTML = '';
                 scheduleDatas.updateData(schedule.renderSchedule(),schedule.id,dateSchedule.dateDatas[dateSchedule.currentitemIndex]);
-            };
-            if(sortZA){
+        };
+        if(sortZA){
                 schedule.sortTaskNameZA();
                 document.getElementById('todo').innerHTML = '';
                 document.getElementById('completed').innerHTML = '';
                 scheduleDatas.updateData(schedule.renderSchedule(),schedule.id,dateSchedule.dateDatas[dateSchedule.currentitemIndex]);
-            };
+        };
+        if(check){
+            imcompleteContentList.style.display = "none";
+        };
+        if(all){
+            imcompleteContentList.style.display = "block";
         }
     }
     editBtn.onclick = (event) => {

@@ -8,7 +8,6 @@ export default class HandleSchedule {
     addData = (data,id) => {
         this.scheduleList = data;
         this.id = id;
-        console.log(this.scheduleList, this.id);
     }
     renderSchedule = () => {
         this.scheduleList.map((schedule,index)=>{
@@ -36,7 +35,6 @@ export default class HandleSchedule {
     }
     removeTask = (index) => {
         this.scheduleList.splice(index,1);
-        console.log(this.scheduleList);
     }
     findItem = (itemTitle) => {
         return this.scheduleList.findIndex((item)=>{
@@ -56,12 +54,10 @@ export default class HandleSchedule {
         this.scheduleList.sort((firstTitle,secondTitle)=>{
             return firstTitle.title.localeCompare(secondTitle.title);
         })
-        console.log(this.scheduleList);
     }
     sortTaskNameZA = () => {
         this.scheduleList.sort((firstTitle,secondTitle)=>{
             return secondTitle.title.localeCompare(firstTitle.title);
         })
-        console.log(this.scheduleList);
     }
 }
